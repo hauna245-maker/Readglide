@@ -21,6 +21,7 @@ function BookList({
                     padding: "8px",
                     marginBottom: "6px",
                     borderRadius: "4px",
+                    alignItems: "center",
                     display: "flex",
                 }}
                 
@@ -40,17 +41,30 @@ function BookList({
 
                 <div
                 style={{
-                    width: "100px", 
-                    //paddingLeft: "0",
-                    textAlign: "left",
-                    margin: "0 20px",
+                    width: "120px", 
+                    paddingRight: "8    px",
+                    textAlign: "right",
+                    margin: "0 8px",
                     backgroundColor:"skyblue",
                 }}
                 >
                 {book.wordCount} words
                 </div>
 
+                <div
+                style={{
+                    width: "90px", 
+                    paddingLeft: "0",
+                    textAlign: "left",
+                    margin: "0 8px",
+                    backgroundColor:"skyblue",
+                }}
+                >
+                Read : {book.progress} %
+                </div>
+
                 <button>⋮</button>
+                
                 
                 </div>
             ))} 

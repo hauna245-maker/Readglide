@@ -58,7 +58,13 @@ function App() {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        width: "840px",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <HomePage
         books={books}
         onUpload={addBook}

@@ -12,7 +12,13 @@ function HomePage({
   onClose,
 }) {
   return (
-    <div style={{ padding: "0 50px" }}>
+    <div 
+    style={{
+      padding: "0 50px",
+      margin: "0 auto",
+      alignItems: "center",
+    }}
+    >
       <h1>My Reading App</h1>
 
       <UploadButton onClick={onUploadClick} />
