@@ -11,6 +11,7 @@ function App() {
       name: "default",
       createdAt: Date.now(),
       lastUsedAt: Date.now(),
+      pinned:false,
     },
   ]);
 

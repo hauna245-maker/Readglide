@@ -1,5 +1,6 @@
 import UploadButton from "../components/Upload/UploadButton";
 import UploadModal from "../components/Upload/UploadModal";
+import BookList from "../components/BookList/BookList";
 
 function HomePage({
   books,
@@ -27,15 +28,15 @@ function HomePage({
 
       <h2>Books</h2>
 
-      {books.length === 0 ? (
-        <p>No books yet</p>
-      ) : (
-        books.map((book) => (
-          <div key={book.id}>
-            {book.title} ({book.wordCount} words)
-          </div>
-        ))
-      )}
+      
+      <BookList
+        books={books}
+        collections={collections} 
+        compact={false}
+      />
+
+      
+      
     </div>
   );
 }
