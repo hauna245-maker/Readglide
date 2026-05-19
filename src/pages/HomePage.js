@@ -12,16 +12,17 @@ function HomePage({
   onClose,
 }) {
   return (
-    <div 
-    style={{
-      padding: "0 50px",
-      margin: "0 auto",
-      alignItems: "center",
-    }}
+    <div
+      style={{
+        width: "1000px",
+        padding: "20px 40px",
+        margin: "0 auto",
+        backgroundColor: "#edeeee",
+      }}
     >
       <h1>My Reading App</h1>
 
-      <UploadButton onClick={onUploadClick} />
+      <UploadButton onClick={onUploadClick}/>
 
       {isModalOpen && (
         <UploadModal
@@ -34,15 +35,8 @@ function HomePage({
 
       <h2>Books</h2>
 
-      
-      <BookList
-        books={books}
-        collections={collections} 
-        compact={false}
-      />
+      <BookList books={books} collections={collections} compact={false} />
 
-      
-      
     </div>
   );
 }

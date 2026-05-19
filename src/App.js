@@ -60,9 +60,7 @@ function App() {
   return (
     <div
       style={{
-        width: "840px",
-        justifyContent: "center",
-        alignItems: "center",
+        backgroundColor: "#7dafaf",
       }}
     >
       <HomePage

@@ -1,75 +1,80 @@
-function BookList({
-    books = [],
-    collections,
-    limit=null,
-    compact,
-}){
-    
-    const displayBooks=books;
+import "../../style/common.css"
 
-    if (displayBooks.length === 0) {
-        return <p>No books yet</p>;
-    }
+function BookList({ books = [], collections, limit = null, compact }) {
+  const displayBooks = books;
 
-    return(
-        <div>
-            {displayBooks.map((book) => (
-                <div
-                key={book.id}
-                style={{
-                    border: "1px solid gray",
-                    padding: "8px",
-                    marginBottom: "6px",
-                    borderRadius: "4px",
-                    alignItems: "center",
-                    display: "flex",
-                }}
-                
-                >
-                <input type="checkbox" />
+  if (displayBooks.length === 0) {
+    return <p>No books yet</p>;
+  }
 
-                {/* title */}
-                <div
-                style={{
-                    paddingLeft: "12px",
-                    cursor: "pointer",
-                    flexGrow: 1, 
-                }}
-                >
-                {book.title}
-                </div>
+  return (
+    <div
+      style={
+        {
+          //border: "1px solid gray",
+          //borderRadius: "6px",
+          //backgroundColor: "#929292",
+        }
+      }
+    >
+      {displayBooks.map((book) => (
+        <div
+          key={book.id}
+          style={{
+            //borderBottom: "0.8px solid gray",
+            border: "1px solid gray",
+            padding: "6px",
+            marginBottom: "-1px",
+            //borderRadius: "4px",
+            alignItems: "center",
+            display: "flex",
+            backgroundColor: "#f8f7f7",
+          }}
+        >
+          <input type="checkbox" />
 
-                <div
-                style={{
-                    width: "120px", 
-                    paddingRight: "8    px",
-                    textAlign: "right",
-                    margin: "0 8px",
-                    backgroundColor:"skyblue",
-                }}
-                >
-                {book.wordCount} words
-                </div>
+          {/* title */}
+          <div
+            style={{
+              paddingLeft: "12px",
+              cursor: "pointer",
+              flexGrow: 1,
+            }}
+          >
+            {book.title}
+          </div>
 
-                <div
-                style={{
-                    width: "90px", 
-                    paddingLeft: "0",
-                    textAlign: "left",
-                    margin: "0 8px",
-                    backgroundColor:"skyblue",
-                }}
-                >
-                Read : {book.progress} %
-                </div>
+          {/* Word count */}
+          <div
+            style={{
+              width: "120px",
+              paddingRight: "8px",
+              textAlign: "right",
+              marginRight: "40px",
+              //backgroundColor: "skyblue",
+            }}
+          >
+            {book.wordCount} words
+          </div>
 
-                <button>⋮</button>
-                
-                
-                </div>
-            ))} 
+          {/* Reading Progress */}
+          <div
+            style={{
+              width: "90px",
+              paddingLeft: "0",
+              textAlign: "left",
+              marginRight: "0px",
+              //backgroundColor: "skyblue",
+            }}
+          >
+            Read : {book.progress} %
+          </div>
+
+          <button className="menuButton">⋮</button>
         </div>
-    )
+      ))}
+    </div>
+  );
 }
 
 export default BookList;

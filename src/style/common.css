@@ -1,0 +1,11 @@
+.menuButton {
+  border: none;
+  width: 20px;
+  border-radius: 15px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.menuButton:hover {
+  background-color: lightgray;
+}
