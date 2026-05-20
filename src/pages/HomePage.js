@@ -17,10 +17,10 @@ function HomePage({
         width: "1000px",
         padding: "20px 40px",
         margin: "0 auto",
+        marginTop: "0",
         backgroundColor: "#edeeee",
       }}
     >
-      <h1>My Reading App</h1>
 
       <UploadButton onClick={onUploadClick}/>
 

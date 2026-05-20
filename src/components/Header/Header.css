@@ -1,0 +1,17 @@
+.header{
+    background-color: rgb(123, 169, 169);
+    padding: 5px 0;
+}
+
+.headerContent{
+    width: 1000px;
+    margin: auto auto;
+    /*background-color: #eaeaea;*/
+    padding: 2px 0;
+}
+
+h1{
+    font-size: 24px;
+    color: #e7e3e3;
+    /*background-color: skyblue;*/
+}

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./TreeDotMenu.css";
 
 function TreeDotMenu({type, book}) {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,15 +14,17 @@ function TreeDotMenu({type, book}) {
   }  
 
   return (
-    <div>
+    <div className="menuContainer">
       <button onClick={() => setIsOpen(!isOpen)} className="menuButton">
         ⋮
       </button>
 
       {isOpen&&(
-        options.map((option) => (
-        <button key={option}>{option}</button>
-        ))
+        <div className="menuPopup">
+          {options.map((option) => (
+          <button key={option} className="optionButton">{option}</button>
+        ))}
+        </div>
       )}
       
     </div>

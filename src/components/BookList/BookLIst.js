@@ -1,4 +1,3 @@
-import "../../style/common.css"
 import TreeDotMenu from "../TreeDotMenu/TreeDotMenu"
 
 function BookList({ books = [], collections, limit = null, compact }) {

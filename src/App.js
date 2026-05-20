@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import HomePage from "./pages/HomePage";
+import Header from "./components/Header/Header";  
+import HomePage from "./pages/HomePage";  
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const [books, setBooks] = useState([]);
@@ -60,9 +62,12 @@ function App() {
   return (
     <div
       style={{
-        backgroundColor: "#7dafaf",
+        //backgroundColor: "#c5d4d2",
+        backgroundColor: "#edeeee",
       }}
     >
+      <Header/>
+
       <HomePage
         books={books}
         onUpload={addBook}
@@ -72,6 +77,8 @@ function App() {
         onUploadClick={() => setIsModalOpen(true)}
         onClose={() => setIsModalOpen(false)}
       />
+
+      <Footer/>
     </div>
   );
 }
