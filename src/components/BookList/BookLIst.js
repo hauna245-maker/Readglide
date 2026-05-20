@@ -1,4 +1,5 @@
 import "../../style/common.css"
+import TreeDotMenu from "../TreeDotMenu/TreeDotMenu"
 
 function BookList({ books = [], collections, limit = null, compact }) {
   const displayBooks = books;
@@ -69,8 +70,8 @@ function BookList({ books = [], collections, limit = null, compact }) {
           >
             Read : {book.progress} %
           </div>
-
-          <button className="menuButton">⋮</button>
+          
+          <TreeDotMenu type="book" book={book}/>
         </div>
       ))}
     </div>

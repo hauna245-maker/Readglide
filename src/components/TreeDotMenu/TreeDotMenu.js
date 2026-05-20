@@ -1,7 +1,31 @@
 import { useState } from "react";
 
-function TreeDotMenu({ books = [], collections }) {
+function TreeDotMenu({type, book}) {
   const [isOpen, setIsOpen] = useState(false);
-  
-  return <button className="menuButton">⋮</button>;
+
+  let options;
+
+  if (type === "book") {
+    options = ["Delete", "Move"];
+  }
+  if (type === "collection") {
+    options = ["Rename", "Delete"];
+  }  
+
+  return (
+    <div>
+      <button onClick={() => setIsOpen(!isOpen)} className="menuButton">
+        ⋮
+      </button>
+
+      {isOpen&&(
+        options.map((option) => (
+        <button key={option}>{option}</button>
+        ))
+      )}
+      
+    </div>
+  );
 }
+
+export default TreeDotMenu;
