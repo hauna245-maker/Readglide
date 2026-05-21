@@ -22,16 +22,16 @@
   top:  100%;
   right: 0;
   
-  background-color: rgb(61, 61, 61);
+  background-color: rgb(75, 75, 75);
   border: 1px solid gray;
   border-radius: 5px;
 
-  padding: 8px 0;
+  padding: 4px 0;
 
   display: flex;
   flex-direction: column;
 
-  gap: 3px;
+  gap: 1.2px;
 
   z-index: 100;
 }
@@ -40,11 +40,11 @@
 .optionButton{
   color: rgb(218, 218, 218);
   border: none;
-  padding: 4px 18px;
+  padding: 5px 18px;
   text-align: center;
   background: transparent;
 }
 
 .optionButton:hover{
-  background-color: #6d6d6d;
+  background-color: #5c5c5c;
 }

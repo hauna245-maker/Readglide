@@ -62,11 +62,11 @@ function App() {
   return (
     <div
       style={{
-        //backgroundColor: "#c5d4d2",
-        backgroundColor: "#edeeee",
+        //backgroundColor: "#edeeee",
+        backgroundColor: "#e9ecec",
       }}
     >
-      <Header/>
+      <Header />
 
       <HomePage
         books={books}
@@ -78,7 +78,7 @@ function App() {
         onClose={() => setIsModalOpen(false)}
       />
 
-      <Footer/>
+      <Footer />
     </div>
   );
 }

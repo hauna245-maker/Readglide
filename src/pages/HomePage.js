@@ -15,10 +15,11 @@ function HomePage({
     <div
       style={{
         width: "1000px",
+        minHeight: "520px",
         padding: "20px 40px",
         margin: "0 auto",
         marginTop: "0",
-        backgroundColor: "#edeeee",
+        //backgroundColor: "#edeeee",
       }}
     >
 
