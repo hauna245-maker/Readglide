@@ -62,10 +62,15 @@ function App() {
   };
 
   //function to move book from books to deleted books
-  const moveBookToTrash = (input) =>{
-    const target=books.find(books.id===input);
-    target.isTrashed=true;
-  }
+  const moveBookToTrash = (bookId) =>{
+    setBooks((prevBooks)=>
+      prevBooks.map((book)=>
+        book.id === bookId
+          ? {...book, isTrashed: true}
+          : book
+      )
+    );
+  };
 
   //delete book forever
   const deleteBookForever =(input)=>{

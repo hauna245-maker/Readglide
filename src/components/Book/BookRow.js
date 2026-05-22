@@ -7,15 +7,7 @@ function BookRow({
 }){
     
     return (
-      <div
-        style={
-          {
-            //border: "1px solid gray",
-            //borderRadius: "6px",
-            //backgroundColor: "#929292",
-          }
-        }
-      >
+      <div>
         {displayBooks.map((book) => (
           <div
             key={book.id}

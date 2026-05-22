@@ -2,14 +2,14 @@ import BookRow from "./BookRow";
 
 function BookList({ books = [], 
   collections, 
-  istrashed,
+  isTrashed,
   moveBookToTrash,
   deleteBookForever, 
   limit = null, 
   compact 
 
 }) {
-  const displayBooks = books.filter((book) => book.isTrashed === false);
+  const displayBooks = books.filter((book) => book.isTrashed === isTrashed);
 
   if (displayBooks.length === 0) {
     return <p>No books yet</p>;
