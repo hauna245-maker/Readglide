@@ -1,6 +1,7 @@
 import UploadButton from "../components/Upload/UploadButton";
 import UploadModal from "../components/Upload/UploadModal";
 import BookList from "../components/Book/BookList";
+import "./HomePage.css";
 
 function HomePage({
   books,
@@ -8,24 +9,15 @@ function HomePage({
   collections,
   onAddCollection,
   moveBookToTrash,
-  deleteBookForver,
+  restoreBook,
+  deleteBookForever,
   isModalOpen,
   onUploadClick,
   onClose,
 }) {
   return (
-    <div
-      style={{
-        width: "1000px",
-        minHeight: "520px",
-        padding: "20px 40px",
-        margin: "0 auto",
-        marginTop: "0",
-        //backgroundColor: "#edeeee",
-      }}
-    >
-
-      <UploadButton onClick={onUploadClick}/>
+    <div className="homePage">
+      <UploadButton onClick={onUploadClick} />
 
       {isModalOpen && (
         <UploadModal
@@ -36,17 +28,31 @@ function HomePage({
         />
       )}
 
-      <h2>Books</h2>
+      <div className="contentBlock">
+        <h2>Books</h2>
+        <BookList
+          books={books}
+          collections={collections}
+          isTrashed={false}
+          moveBookToTrash={moveBookToTrash}
+          restoreBook ={restoreBook}
+          deleteBookForever={deleteBookForever}
+          compact={false}
+        />
+      </div>
 
-      <BookList 
-        books={books} 
-        collections={collections}
-        isTrashed={false}
-        moveBookToTrash={moveBookToTrash}
-        deleteBookForver={deleteBookForver}
-        compact={false} 
-      />
-
+      <div className="contentBlock">
+        <h2>Deleted Books</h2>
+        <BookList
+          books={books}
+          collections={collections}
+          isTrashed={true}
+          moveBookToTrash={moveBookToTrash}
+          restoreBook={restoreBook}
+          deleteBookForever={deleteBookForever}
+          compact={false}
+        />
+      </div>
     </div>
   );
 }

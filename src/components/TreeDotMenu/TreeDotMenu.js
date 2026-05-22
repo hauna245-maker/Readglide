@@ -5,6 +5,7 @@ function TreeDotMenu({
   type, 
   bookId,
   moveBookToTrash,
+  restoreBook,
   deleteBookForever,
 }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,28 +14,39 @@ function TreeDotMenu({
 
   if (type === "book") {
     options = [
-      {
-        label: "Delete book",
-        onClick: () => moveBookToTrash(bookId),
-      },
-      {
-        label: "Change collection",
-      },
+      {label: "Delete book", onClick: () => moveBookToTrash(bookId)},
+      {label: "Change collection"},
     ];
   }
-  if (type === "collection") {
+  else if (type==="deleted book"){
+    options=[
+      {label: "restore book", onClick: ()=>restoreBook(bookId)},
+      {label: "delete book permanently", onClick:()=>deleteBookForever(bookId)},
+    ]
+  }
+  else if (type === "collection") {
     options = [
-      {
-        labe:"Rename",
-      }, 
-      {
-        label: "Delete",
-      }
+      {label:"Rename",}, 
+      {label: "Delete",}
     ];
   }  
 
   return (
     <div className="menuContainer">
+      {isOpen && (
+        <div
+          onClick={() => setIsOpen(false)}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            zIndex: 99,
+          }}
+        />
+      )}
+
       <button onClick={() => setIsOpen(!isOpen)} className="menuButton">
         ⋮
       </button>

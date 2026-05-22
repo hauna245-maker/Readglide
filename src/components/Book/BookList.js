@@ -4,6 +4,7 @@ function BookList({ books = [],
   collections, 
   isTrashed,
   moveBookToTrash,
+  restoreBook,
   deleteBookForever, 
   limit = null, 
   compact 
@@ -19,11 +20,12 @@ function BookList({ books = [],
     <div>
       <BookRow 
         displayBooks={displayBooks}
+        isTrashed={isTrashed}
         moveBookToTrash={moveBookToTrash}
+        restoreBook={restoreBook}
         deleteBookForever={deleteBookForever}
       />
     </div>
-
   );
 }
 

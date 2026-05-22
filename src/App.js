@@ -72,10 +72,20 @@ function App() {
     );
   };
 
-  //delete book forever
-  const deleteBookForever =(input)=>{
+  const restoreBook = (bookId) => {
+    setBooks((prevBooks) =>
+      prevBooks.map((book) =>
+        book.id === bookId 
+          ? { ...book, isTrashed: false } 
+          : book,
+      ),
+    );
+  };
 
-  }
+  //delete book forever
+  const deleteBookForever =(bookId)=>{
+    setBooks((prevBooks)=> prevBooks.filter((book)=> book.id!==bookId))
+  };
 
   //actuall output
   return (
@@ -92,6 +102,7 @@ function App() {
         collections={collections}
         onAddCollection={addCollection}
         moveBookToTrash={moveBookToTrash}
+        restoreBook={restoreBook}
         deleteBookForever={deleteBookForever}
         isModalOpen={isModalOpen}
         onUploadClick={() => setIsModalOpen(true)}

@@ -1,0 +1,11 @@
+.homePage{
+    width: 1000px;
+    min-height: 520px;
+    padding: 20px 40px;
+    margin: 0 auto;
+    margin-top: 0;
+}
+
+.contentBlock{
+    margin-bottom: 80px;
+}
