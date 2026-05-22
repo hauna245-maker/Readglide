@@ -44,6 +44,7 @@ function App() {
     return newCollection;
   };
 
+  //function to add book to books
   const addBook = (input) => {
     const newBook = {
       id: books.length + 1,
@@ -54,15 +55,27 @@ function App() {
       createdAt: Date.now(),
       lastReadAt: null,
       progress: 0,
+      isTrashed: false,
     };
 
     setBooks((prev) => [...prev, newBook]);
   };
 
+  //function to move book from books to deleted books
+  const moveBookToTrash = (input) =>{
+    const target=books.find(books.id===input);
+    target.isTrashed=true;
+  }
+
+  //delete book forever
+  const deleteBookForever =(input)=>{
+
+  }
+
+  //actuall output
   return (
     <div
       style={{
-        //backgroundColor: "#edeeee",
         backgroundColor: "#e9ecec",
       }}
     >
@@ -73,6 +86,8 @@ function App() {
         onUpload={addBook}
         collections={collections}
         onAddCollection={addCollection}
+        moveBookToTrash={moveBookToTrash}
+        deleteBookForever={deleteBookForever}
         isModalOpen={isModalOpen}
         onUploadClick={() => setIsModalOpen(true)}
         onClose={() => setIsModalOpen(false)}

@@ -1,16 +1,36 @@
 import { useState } from "react";
 import "./TreeDotMenu.css";
 
-function TreeDotMenu({type, book}) {
+function TreeDotMenu({
+  type, 
+  bookId,
+  moveBookToTrash,
+  deleteBookForever,
+}) {
   const [isOpen, setIsOpen] = useState(false);
 
   let options;
 
   if (type === "book") {
-    options = ["Delete", "Move"];
+    options = [
+      {
+        label: "Delete book",
+        onClick: () => moveBookToTrash(bookId),
+      },
+      {
+        label: "Change collection",
+      },
+    ];
   }
   if (type === "collection") {
-    options = ["Rename", "Delete"];
+    options = [
+      {
+        labe:"Rename",
+      }, 
+      {
+        label: "Delete",
+      }
+    ];
   }  
 
   return (
@@ -19,14 +39,19 @@ function TreeDotMenu({type, book}) {
         ⋮
       </button>
 
-      {isOpen&&(
+      {isOpen && (
         <div className="menuPopup">
           {options.map((option) => (
-          <button key={option} className="optionButton">{option}</button>
-        ))}
+            <button
+              key={option.label}
+              onClick={option.onClick}
+              className="optionButton"
+            >
+              {option.label}
+            </button>
+          ))}
         </div>
       )}
-      
     </div>
   );
 }

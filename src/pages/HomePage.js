@@ -1,12 +1,14 @@
 import UploadButton from "../components/Upload/UploadButton";
 import UploadModal from "../components/Upload/UploadModal";
-import BookList from "../components/BookList/BookList";
+import BookList from "../components/Book/BookList";
 
 function HomePage({
   books,
   onUpload,
   collections,
   onAddCollection,
+  moveBookToTrash,
+  deleteBookForver,
   isModalOpen,
   onUploadClick,
   onClose,
@@ -36,7 +38,14 @@ function HomePage({
 
       <h2>Books</h2>
 
-      <BookList books={books} collections={collections} compact={false} />
+      <BookList 
+        books={books} 
+        collections={collections}
+        isTrashed={false}
+        moveBookToTrash={moveBookToTrash}
+        deleteBookForver={deleteBookForver}
+        compact={false} 
+      />
 
     </div>
   );
