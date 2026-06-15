@@ -2,20 +2,24 @@ import { useState, useEffect } from "react";
 import Header from "./components/Header/Header";  
 import HomePage from "./pages/HomePage";  
 import Footer from "./components/Footer/Footer";
+import BookEditModal from "./components/BookEdit/BookEditModal";
 
 function App() {
-  const [books, setBooks] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  //declare variable
   const [isLoaded, setIsLoaded] = useState(false);
+  const [books, setBooks] = useState([]);
   const [collections, setCollections] = useState([
     {
       id: 0,
       name: "default",
       createdAt: Date.now(),
       lastUsedAt: Date.now(),
-      pinned:false,
+      pinned: false,
     },
   ]);
+  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
+  const [isBookEditModalOpen, setIsBookEditModalOpen] = useState(false);
+  const [editingBook, setEditingBook] = useState(null);
 
   // load from localStorage
   useEffect(() => {
@@ -32,6 +36,7 @@ function App() {
     localStorage.setItem("books", JSON.stringify(books));
   }, [books, isLoaded]);
 
+  //function to add a collection to collections
   const addCollection = (name) => {
     const newCollection = {
       id: collections.length + 1,
@@ -44,10 +49,12 @@ function App() {
     return newCollection;
   };
 
-  //function to add book to books
+  //function to add a book to books
   const addBook = (input) => {
+    const nextId = (books[books.length - 1]?.id ?? 0) + 1;
+
     const newBook = {
-      id: books.length + 1,
+      id: nextId,
       title: input.title,
       content: input.content,
       collection: input.collectionId,
@@ -61,30 +68,45 @@ function App() {
     setBooks((prev) => [...prev, newBook]);
   };
 
-  //function to move book from books to deleted books
-  const moveBookToTrash = (bookId) =>{
-    setBooks((prevBooks)=>
-      prevBooks.map((book)=>
-        book.id === bookId
-          ? {...book, isTrashed: true}
-          : book
-      )
+  //function to update a book
+  const updateBook = (changes) => {
+    setBooks((prevBooks) =>
+      prevBooks.map((book) => (book.id === changes.id ? changes : book)),
+    );
+  };
+
+  //function to move a book from books to deleted books
+  const moveBookToTrash = (bookId) => {
+    setBooks((prevBooks) =>
+      prevBooks.map((book) =>
+        book.id === bookId ? { ...book, isTrashed: true } : book,
+      ),
     );
   };
 
   const restoreBook = (bookId) => {
     setBooks((prevBooks) =>
       prevBooks.map((book) =>
-        book.id === bookId 
-          ? { ...book, isTrashed: false } 
-          : book,
+        book.id === bookId ? { ...book, isTrashed: false } : book,
       ),
     );
   };
 
-  //delete book forever
-  const deleteBookForever =(bookId)=>{
-    setBooks((prevBooks)=> prevBooks.filter((book)=> book.id!==bookId))
+  //delete a book forever
+  const deleteBookForever = (bookId) => {
+    setBooks((prevBooks) => prevBooks.filter((book) => book.id !== bookId));
+  };
+
+  //function to open BookEditModal
+  const openBookEditModal = (book) => {
+    setEditingBook(book);
+    setIsBookEditModalOpen(true);
+  };
+
+  //function to open BookEditModal
+  const closeBookEditModal = () => {
+    setEditingBook(null);
+    setIsBookEditModalOpen(false);
   };
 
   //actuall output
@@ -95,21 +117,32 @@ function App() {
       }}
     >
       <Header />
-
       <HomePage
         books={books}
-        onUpload={addBook}
         collections={collections}
-        onAddCollection={addCollection}
+        addBook={addBook}
+        updateBook={updateBook}
         moveBookToTrash={moveBookToTrash}
         restoreBook={restoreBook}
         deleteBookForever={deleteBookForever}
-        isModalOpen={isModalOpen}
-        onUploadClick={() => setIsModalOpen(true)}
-        onClose={() => setIsModalOpen(false)}
+        addCollection={addCollection}
+        isUploadModalOpen={isUploadModalOpen}
+        openUploadModal={() => setIsUploadModalOpen(true)}
+        closeUploadModal={() => setIsUploadModalOpen(false)}
+        openBookEditModal={openBookEditModal}
       />
-
       <Footer />
+
+      {isBookEditModalOpen && (
+        <BookEditModal
+          collections={collections}
+          editingBook={editingBook}
+          updateBook={updateBook}
+          addCollection={addCollection}
+          closeBookEditModal={closeBookEditModal}
+        />
+      )}
+      :
     </div>
   );
 }

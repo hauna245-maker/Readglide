@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState, useNavigate } from "react";
 import "./TreeDotMenu.css";
 
 function TreeDotMenu({
-  type, 
-  bookId,
+  type,
+  book,
   moveBookToTrash,
   restoreBook,
   deleteBookForever,
+  openBookEditModal,
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -14,22 +15,26 @@ function TreeDotMenu({
 
   if (type === "book") {
     options = [
-      {label: "Delete book", onClick: () => moveBookToTrash(bookId)},
-      {label: "Change collection"},
+      { label: "Delete book", onClick: () => moveBookToTrash(book.id) },
+      { label: "Edit book", onClick: () => openBookEditModal(book) },
+      { label: "Change collection" },
     ];
-  }
-  else if (type==="deleted book"){
-    options=[
-      {label: "restore book", onClick: ()=>restoreBook(bookId)},
-      {label: "delete book permanently", onClick:()=>deleteBookForever(bookId)},
-    ]
-  }
-  else if (type === "collection") {
+  } else if (type === "deleted book") {
     options = [
-      {label:"Rename",}, 
-      {label: "Delete",}
+      { label: "restore book", onClick: () => restoreBook(book.id) },
+      {
+        label: "delete book permanently",
+        onClick: () => deleteBookForever(book.id),
+      },
     ];
-  }  
+  } else if (type === "collection") {
+    options = [{ label: "Rename" }, { label: "Delete" }];
+  }
+
+  const handleOnClick = (option)=> {
+    option.onClick?.();
+    setIsOpen(false);
+  };
 
   return (
     <div className="menuContainer">
@@ -56,7 +61,7 @@ function TreeDotMenu({
           {options.map((option) => (
             <button
               key={option.label}
-              onClick={option.onClick}
+              onClick={() => handleOnClick(option)}
               className="optionButton"
             >
               {option.label}

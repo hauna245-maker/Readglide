@@ -1,11 +1,12 @@
 import TreeDotMenu from "../TreeDotMenu/TreeDotMenu";
 
 function BookRow({
-    displayBooks=[],
-    isTrashed,
-    moveBookToTrash,
-    restoreBook,
-    deleteBookForever,
+  displayBooks=[],
+  isTrashed,
+  moveBookToTrash,
+  restoreBook,
+  deleteBookForever,
+  openBookEditModal,
 }){
 
   
@@ -68,10 +69,11 @@ function BookRow({
 
           <TreeDotMenu
             type={type}
-            bookId={book.id}
+            book={book}
             moveBookToTrash={moveBookToTrash}
             restoreBook={restoreBook}
             deleteBookForever={deleteBookForever}
+            openBookEditModal={openBookEditModal}
           />
         </div>
       ))}

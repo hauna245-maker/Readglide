@@ -6,6 +6,7 @@ function BookList({ books = [],
   moveBookToTrash,
   restoreBook,
   deleteBookForever, 
+  openBookEditModal,
   limit = null, 
   compact 
 
@@ -18,12 +19,13 @@ function BookList({ books = [],
 
   return (
     <div>
-      <BookRow 
+      <BookRow
         displayBooks={displayBooks}
         isTrashed={isTrashed}
         moveBookToTrash={moveBookToTrash}
         restoreBook={restoreBook}
         deleteBookForever={deleteBookForever}
+        openBookEditModal={openBookEditModal}
       />
     </div>
   );

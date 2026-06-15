@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function UploadModal({ onClose, onUpload, collections, onAddCollection }) {
+function UploadModal({ closeUploadModal, addBook, collections, addCollection }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [keepTitle, setKeepTitle] = useState(false);
@@ -12,7 +12,7 @@ function UploadModal({ onClose, onUpload, collections, onAddCollection }) {
   const handleSubmit = () => {
     if (!title || !content) return;
 
-    onUpload({ title, content, collectionId: collectionId });
+    addBook({ title, content, collectionId: collectionId });
 
     if (keepOpen) {
       if (!keepTitle) {
@@ -20,7 +20,7 @@ function UploadModal({ onClose, onUpload, collections, onAddCollection }) {
       }
       setContent("");
     } else {
-      onClose();
+      closeUploadModal();
     }
   };
 
@@ -77,7 +77,7 @@ function UploadModal({ onClose, onUpload, collections, onAddCollection }) {
             <button
               onClick={() => {
                 if (!newCollectionName.trim()) return;
-                const newCollection = onAddCollection(newCollectionName.trim());
+                const newCollection = addCollection(newCollectionName.trim());
                 setCollectionId(newCollection.id);
                 setIsCreating(false);
                 setNewCollectionName("");
@@ -120,7 +120,7 @@ function UploadModal({ onClose, onUpload, collections, onAddCollection }) {
 
       <button onClick={handleSubmit}>Upload</button>
 
-      <button onClick={onClose}>Cancel</button>
+      <button onClick={closeUploadModal}>Cancel</button>
 
       <label>
         <input

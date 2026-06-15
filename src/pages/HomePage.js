@@ -5,26 +5,27 @@ import "./HomePage.css";
 
 function HomePage({
   books,
-  onUpload,
+  addBook,
   collections,
-  onAddCollection,
+  addCollection,
   moveBookToTrash,
   restoreBook,
   deleteBookForever,
-  isModalOpen,
-  onUploadClick,
-  onClose,
+  isUploadModalOpen,
+  openUploadModal,
+  closeUploadModal,
+  openBookEditModal,
 }) {
   return (
     <div className="homePage">
-      <UploadButton onClick={onUploadClick} />
+      <UploadButton onClick={openUploadModal} />
 
-      {isModalOpen && (
+      {isUploadModalOpen && (
         <UploadModal
-          onClose={onClose}
-          onUpload={onUpload}
+          closeUploadModal={closeUploadModal}
+          addBook={addBook}
           collections={collections}
-          onAddCollection={onAddCollection}
+          addCollection={addCollection}
         />
       )}
 
@@ -33,10 +34,11 @@ function HomePage({
         <BookList
           books={books}
           collections={collections}
-          isTrashed={false}
           moveBookToTrash={moveBookToTrash}
-          restoreBook ={restoreBook}
+          restoreBook={restoreBook}
           deleteBookForever={deleteBookForever}
+          openBookEditModal={openBookEditModal}
+          isTrashed={false}
           compact={false}
         />
       </div>
