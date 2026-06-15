@@ -1,4 +1,5 @@
-import { useState, useNavigate } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./TreeDotMenu.css";
 
 function TreeDotMenu({
@@ -9,6 +10,7 @@ function TreeDotMenu({
   deleteBookForever,
   openBookEditModal,
 }) {
+  const navigate=useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
   let options;
@@ -16,7 +18,7 @@ function TreeDotMenu({
   if (type === "book") {
     options = [
       { label: "Delete book", onClick: () => moveBookToTrash(book.id) },
-      { label: "Edit book", onClick: () => openBookEditModal(book) },
+      { label: "Edit book", onClick: () => navigate(`/books/${book.id}/edit`)  },
       { label: "Change collection" },
     ];
   } else if (type === "deleted book") {

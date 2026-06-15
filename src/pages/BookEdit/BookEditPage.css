@@ -1,0 +1,15 @@
+.book-edit-page{
+    padding: 20px 0;
+}
+
+.editing-input{
+    width: 600px;
+    font-size: 16px;
+    padding: 6px;
+    margin-bottom: 14px;
+}
+
+#content-input{
+    height: 540px;
+    resize: none;
+}

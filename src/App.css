@@ -1,6 +1,17 @@
-.App {
-  text-align: center;
+.mainPage{
+    width: 1000px;
+    min-height: 520px;
+    margin: 0 auto;
 }
+
+.App {
+  background-color: #e9ecec;
+}
+
+input, textarea{
+  font-family: Arial, sans-serif;
+}
+
 
 .App-logo {
   height: 40vmin;

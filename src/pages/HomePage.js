@@ -17,7 +17,7 @@ function HomePage({
   openBookEditModal,
 }) {
   return (
-    <div className="homePage">
+    <div className="homepage">
       <UploadButton onClick={openUploadModal} />
 
       {isUploadModalOpen && (

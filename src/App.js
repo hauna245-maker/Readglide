@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header";  
 import HomePage from "./pages/HomePage";  
 import Footer from "./components/Footer/Footer";
-import BookEditModal from "./components/BookEdit/BookEditModal";
+import BookEditPage from "./pages/BookEdit/BookEditPage";
+import "./App.css";
+
 
 function App() {
   //declare variable
@@ -18,8 +21,6 @@ function App() {
     },
   ]);
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
-  const [isBookEditModalOpen, setIsBookEditModalOpen] = useState(false);
-  const [editingBook, setEditingBook] = useState(null);
 
   // load from localStorage
   useEffect(() => {
@@ -70,6 +71,8 @@ function App() {
 
   //function to update a book
   const updateBook = (changes) => {
+    changes.wordCount=changes.content.split(" ").length;
+
     setBooks((prevBooks) =>
       prevBooks.map((book) => (book.id === changes.id ? changes : book)),
     );
@@ -84,6 +87,7 @@ function App() {
     );
   };
 
+  //function to restore a book
   const restoreBook = (bookId) => {
     setBooks((prevBooks) =>
       prevBooks.map((book) =>
@@ -97,52 +101,51 @@ function App() {
     setBooks((prevBooks) => prevBooks.filter((book) => book.id !== bookId));
   };
 
-  //function to open BookEditModal
-  const openBookEditModal = (book) => {
-    setEditingBook(book);
-    setIsBookEditModalOpen(true);
-  };
-
-  //function to open BookEditModal
-  const closeBookEditModal = () => {
-    setEditingBook(null);
-    setIsBookEditModalOpen(false);
-  };
-
   //actuall output
   return (
-    <div
+    <div className="App"
       style={{
-        backgroundColor: "#e9ecec",
+
       }}
     >
       <Header />
-      <HomePage
-        books={books}
-        collections={collections}
-        addBook={addBook}
-        updateBook={updateBook}
-        moveBookToTrash={moveBookToTrash}
-        restoreBook={restoreBook}
-        deleteBookForever={deleteBookForever}
-        addCollection={addCollection}
-        isUploadModalOpen={isUploadModalOpen}
-        openUploadModal={() => setIsUploadModalOpen(true)}
-        closeUploadModal={() => setIsUploadModalOpen(false)}
-        openBookEditModal={openBookEditModal}
-      />
-      <Footer />
 
-      {isBookEditModalOpen && (
-        <BookEditModal
-          collections={collections}
-          editingBook={editingBook}
-          updateBook={updateBook}
-          addCollection={addCollection}
-          closeBookEditModal={closeBookEditModal}
-        />
-      )}
-      :
+      <div className="mainPage">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <HomePage
+                books={books}
+                collections={collections}
+                addBook={addBook}
+                updateBook={updateBook}
+                moveBookToTrash={moveBookToTrash}
+                restoreBook={restoreBook}
+                deleteBookForever={deleteBookForever}
+                addCollection={addCollection}
+                isUploadModalOpen={isUploadModalOpen}
+                openUploadModal={() => setIsUploadModalOpen(true)}
+                closeUploadModal={() => setIsUploadModalOpen(false)}
+              />
+            }
+          />
+
+          <Route
+            path="/books/:bookId/edit"
+            element={
+              <BookEditPage
+                books={books}
+                collections={collections}
+                updateBook={updateBook}
+                addCollection={addCollection}
+              />
+            }
+          />
+        </Routes>
+      </div>
+
+      <Footer />
     </div>
   );
 }
