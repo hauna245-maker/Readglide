@@ -1,11 +1,12 @@
 .mainPage{
-    width: 1000px;
-    min-height: 520px;
-    margin: 0 auto;
+  width: 1000px;  
+  margin: 0 auto;
+  margin-bottom: 50px;
 }
 
 .App {
   background-color: #e9ecec;
+  min-height: 100vh;
 }
 
 input, textarea{

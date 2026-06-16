@@ -20,7 +20,7 @@ function BookEditPage({ books, updateBook, collections, addCollection }) {
   }
 
   return (
-    <div className="book-edit-page">
+    <div className="BookEditPage">
       <div className="tmp">
         <input
           className="editing-input"

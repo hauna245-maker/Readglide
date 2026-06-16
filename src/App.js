@@ -103,11 +103,7 @@ function App() {
 
   //actuall output
   return (
-    <div className="App"
-      style={{
-
-      }}
-    >
+    <div className="App">
       <Header />
 
       <div className="mainPage">

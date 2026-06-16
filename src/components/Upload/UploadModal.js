@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./UploadModal.css";
 
 function UploadModal({ closeUploadModal, addBook, collections, addCollection }) {
   const [title, setTitle] = useState("");
@@ -33,10 +34,11 @@ function UploadModal({ closeUploadModal, addBook, collections, addCollection }) 
   };
 
   return (
-    <div style={{ border: "1px solid black", padding: "1px 20px" }}>
+    <div className="UploadModal">
       <h2>Upload Book</h2>
 
       <input
+        className="input"
         type="text"
         placeholder="Title"
         value={title}
@@ -51,18 +53,15 @@ function UploadModal({ closeUploadModal, addBook, collections, addCollection }) 
         <span>Keep title</span>
       </label>
 
-      <br />
-      <br />
-
       <textarea
+        className="input"
+        id="content-input"
         placeholder="Content"
         value={content}
         onChange={(e) => setContent(e.target.value)}
       />
 
-      <br />
-
-      <div style={{ marginTop: "15px" }}>
+      <div style={{ marginTop: "8px" }}>
         <label>Select Collection: </label>
 
         {isCreating ? (

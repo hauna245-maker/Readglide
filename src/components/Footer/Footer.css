@@ -1,7 +1,8 @@
 .footer{
     background-color: #424242;
     /*min-height:600px;*/
-    margin-top: 50px;
+    /*margin-top: 50px;*/
+    margin-bottom: 0;
     padding-top: 20px;
     padding-bottom: 100px;
 }
@@ -9,7 +10,6 @@
 .footerContent{
     width: 1000px;
     margin: auto auto;
-    /*background-color: #eaeaea;*/
     padding: 2px 0;
     
 }
