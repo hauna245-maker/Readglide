@@ -1,70 +1,47 @@
-# Getting Started with Create React App
+# Readglide
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+英語学習者向け読書サービス（開発中）
 
-## Available Scripts
+## 概要
 
-In the project directory, you can run:
+Readglideは、英語学習者がよりスムーズに英語の読書を続けられることを目指した読書支援サービスです。
 
-### `npm start`
+## 開発背景
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+私は英語学習の一環として英語小説を読んでおり、その際にReadLangという読書支援サービスを利用していました。しかし、シリーズ作品を読む際の作品間の移動や、アプリ起動後に目的の作品へたどり着くまでの操作が多く、読書の流れが途切れてしまうことがありました。そこで、「読書時の摩擦を減らし、より快適に読書へ集中できる環境を作りたい」と考え、本サービスの開発を始めました。
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Readglideでは、英語学習者が少ない操作で読書を始められることや、複数作品を管理しやすいことを重視して開発を進めています。
 
-### `npm test`
+## 使用技術
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### フロントエンド
 
-### `npm run build`
+* JavaScript
+* React
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 開発ツール
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* Git
+* GitHub
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 現在実装している機能
 
-### `npm run eject`
+* 書籍の登録
+* 書籍の編集
+* 書籍の削除
+* ゴミ箱機能
+* 書籍の復元
+* コレクションの追加
+* Local Storageによる書籍データ保存
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 今後実装したい機能
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* 読書画面の改善
+* シリーズ作品管理機能の強化
+* UI / UXの改善
+* 英語学習支援機能の追加
+* AIを活用した読書支援機能の実装検討
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 開発状況
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+現在も開発中です。
