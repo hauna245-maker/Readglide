@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import Header from "./components/Header/Header";  
-import HomePage from "./pages/HomePage";  
-import Footer from "./components/Footer/Footer";
-import BookEditPage from "./pages/BookEdit/BookEditPage";
+import MainLayout from "./layout/MainLayout";
+import ReaderLayout from "./layout/ReaderLayout"
+import HomePage from "./pages/HomePage/HomePage";  
+import BookEditPage from "./pages/BookEditPage/BookEditPage";
+import BookReadPage from "./pages/BookReadPage/BookReadPage";
 import "./App.css";
 
 
@@ -104,44 +105,50 @@ function App() {
   //actuall output
   return (
     <div className="App">
-      <Header />
-
-      <div className="mainPage">
+      <div className="tmp">
         <Routes>
-          <Route
-            path="/"
-            element={
-              <HomePage
-                books={books}
-                collections={collections}
-                addBook={addBook}
-                updateBook={updateBook}
-                moveBookToTrash={moveBookToTrash}
-                restoreBook={restoreBook}
-                deleteBookForever={deleteBookForever}
-                addCollection={addCollection}
-                isUploadModalOpen={isUploadModalOpen}
-                openUploadModal={() => setIsUploadModalOpen(true)}
-                closeUploadModal={() => setIsUploadModalOpen(false)}
-              />
-            }
-          />
+          <Route element={<MainLayout />}>
+            <Route
+              path="/"
+              element={
+                <HomePage
+                  books={books}
+                  collections={collections}
+                  addBook={addBook}
+                  updateBook={updateBook}
+                  moveBookToTrash={moveBookToTrash}
+                  restoreBook={restoreBook}
+                  deleteBookForever={deleteBookForever}
+                  addCollection={addCollection}
+                  isUploadModalOpen={isUploadModalOpen}
+                  openUploadModal={() => setIsUploadModalOpen(true)}
+                  closeUploadModal={() => setIsUploadModalOpen(false)}
+                />
+              }
+            />
 
-          <Route
-            path="/books/:bookId/edit"
-            element={
-              <BookEditPage
-                books={books}
-                collections={collections}
-                updateBook={updateBook}
-                addCollection={addCollection}
-              />
-            }
-          />
+            <Route
+              path="/books/:bookId/edit"
+              element={
+                <BookEditPage
+                  books={books}
+                  collections={collections}
+                  updateBook={updateBook}
+                  addCollection={addCollection}
+                />
+              }
+            />
+          </Route>
+              
+          <Route element={<ReaderLayout />}>
+            <Route path="/books/:bookId" element={<BookReadPage
+                  books={books} 
+                />
+              } 
+            />
+          </Route>
         </Routes>
       </div>
-
-      <Footer />
     </div>
   );
 }

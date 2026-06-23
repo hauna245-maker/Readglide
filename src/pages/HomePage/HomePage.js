@@ -1,6 +1,6 @@
-import UploadButton from "../components/Upload/UploadButton";
-import UploadModal from "../components/Upload/UploadModal";
-import BookList from "../components/Book/BookList";
+import UploadButton from "../../components/Upload/UploadButton";
+import UploadModal from "../../components/Upload/UploadModal";
+import BookList from "../../components/Book/BookList";
 import "./HomePage.css";
 
 function HomePage({
