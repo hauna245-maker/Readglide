@@ -36,9 +36,11 @@
   z-index: 100;
 }
 
-
-.optionButton{
+.menu-option{
   color: rgb(218, 218, 218);
+  font: inherit;
+  font-size: 12px;
+  text-decoration: none;
   border: none;
   padding: 5px 18px;
   text-align: left;
@@ -46,6 +48,6 @@
   white-space: nowrap;
 }
 
-.optionButton:hover{
+.menu-option:hover{
   background-color: #5c5c5c;
 }

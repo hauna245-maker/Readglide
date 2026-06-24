@@ -1,10 +1,13 @@
+import { Link } from "react-router-dom";
 import "./Header.css";
 
 function Header({}){
     return(
         <div className="header">
          <div className="headerContent">
-            <h1>Readglide</h1>
+            <Link to="/" className="header-logo">
+            Readglide
+            </Link>
          </div>
         </div> 
     );

@@ -5,10 +5,15 @@ import "./BookReadPage.css"
 function BookReadPage({books}){
     const { bookId } = useParams();
     const readingBook = books.find((book) => book.id === Number(bookId));
+    const [pageIndex, setPageIndex] = useState(0);
+
+    if (!readingBook) {
+    return <p>Book not found</p>;
+    }
 
     return(
-        <div>
-
+        <div className="reading-page">
+            {readingBook.content}
         </div>
     );
 

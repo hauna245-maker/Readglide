@@ -1,6 +1,7 @@
 .App {
   background-color: #e9ecec;
   min-height: 100vh;
+  color: black;
 }
 
 input, textarea{

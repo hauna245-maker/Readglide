@@ -105,50 +105,49 @@ function App() {
   //actuall output
   return (
     <div className="App">
-      <div className="tmp">
-        <Routes>
-          <Route element={<MainLayout />}>
-            <Route
-              path="/"
-              element={
-                <HomePage
-                  books={books}
-                  collections={collections}
-                  addBook={addBook}
-                  updateBook={updateBook}
-                  moveBookToTrash={moveBookToTrash}
-                  restoreBook={restoreBook}
-                  deleteBookForever={deleteBookForever}
-                  addCollection={addCollection}
-                  isUploadModalOpen={isUploadModalOpen}
-                  openUploadModal={() => setIsUploadModalOpen(true)}
-                  closeUploadModal={() => setIsUploadModalOpen(false)}
-                />
-              }
-            />
+      <Routes>
+        <Route element={<MainLayout />}>
+          <Route
+            path="/"
+            element={
+              <HomePage
+                books={books}
+                collections={collections}
+                addBook={addBook}
+                updateBook={updateBook}
+                moveBookToTrash={moveBookToTrash}
+                restoreBook={restoreBook}
+                deleteBookForever={deleteBookForever}
+                addCollection={addCollection}
+                isUploadModalOpen={isUploadModalOpen}
+                openUploadModal={() => setIsUploadModalOpen(true)}
+                closeUploadModal={() => setIsUploadModalOpen(false)}
+              />
+            }
+          />
 
-            <Route
-              path="/books/:bookId/edit"
-              element={
-                <BookEditPage
-                  books={books}
-                  collections={collections}
-                  updateBook={updateBook}
-                  addCollection={addCollection}
-                />
-              }
-            />
-          </Route>
-              
-          <Route element={<ReaderLayout />}>
-            <Route path="/books/:bookId" element={<BookReadPage
-                  books={books} 
-                />
-              } 
-            />
-          </Route>
-        </Routes>
-      </div>
+          <Route
+            path="/books/:bookId/edit"
+            element={
+              <BookEditPage
+                books={books}
+                collections={collections}
+                updateBook={updateBook}
+                addCollection={addCollection}
+              />
+            }
+          />
+        </Route>
+            
+        <Route element={<ReaderLayout />}>
+          <Route path="/books/:bookId" element={
+              <BookReadPage
+                books={books} 
+              />
+            } 
+          />
+        </Route>
+      </Routes>
     </div>
   );
 }

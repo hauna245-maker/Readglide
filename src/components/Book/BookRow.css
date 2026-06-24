@@ -1,0 +1,32 @@
+.book-row-box{
+    border: 0.8px solid gray;
+    padding: 6px;
+    margin-bottom: -1px;
+    align-items: center;
+    display: flex;
+    background-color: #f8f7f7;
+}
+
+.book-row-title{
+    padding-left: 12px;
+    cursor: pointer;
+    flex-grow: 1;
+}
+
+.book-title{
+    color: #2d068f;
+}
+
+.book-row-word-count{
+    width: 120px;
+    padding-right: 4px;
+    text-align: right;
+    margin-right: 4px;
+}
+
+.book-row-progress{
+    width: 108px;
+    padding-right: 8px;
+    text-align: right;
+    margin-right: 4px;
+}

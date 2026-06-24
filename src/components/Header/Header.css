@@ -8,11 +8,13 @@
     width: 1000px;
     margin: auto auto;
     /*background-color: #eaeaea;*/
-    padding: 1px 0;
+    padding: 14px 0;
 }
 
-h1{
+.header-logo{
     font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
     color: #ecf0f0;
     /*background-color: skyblue;*/
 }

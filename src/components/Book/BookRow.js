@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import TreeDotMenu from "../TreeDotMenu/TreeDotMenu";
+import "./BookRow.css"
 
 function BookRow({
   displayBooks=[],
@@ -15,55 +17,23 @@ function BookRow({
   return (
     <div>
       {displayBooks.map((book) => (
-        <div
-          key={book.id}
-          style={{
-            //borderBottom: "0.8px solid gray",
-            border: "1px solid gray",
-            padding: "6px",
-            marginBottom: "-1px",
-            //borderRadius: "4px",
-            alignItems: "center",
-            display: "flex",
-            backgroundColor: "#f8f7f7",
-          }}
-        >
+        <div key={book.id} className="book-row-box">
           <input type="checkbox" />
 
           {/* title */}
-          <div
-            style={{
-              paddingLeft: "12px",
-              cursor: "pointer",
-              flexGrow: 1,
-            }}
-          >
-            {book.title}
+          <div className="book-row-title">
+            <Link to={`/books/${book.id}`} className="book-title">
+              {book.title}
+            </Link>
           </div>
 
           {/* Word count */}
-          <div
-            style={{
-              width: "120px",
-              paddingRight: "8px",
-              textAlign: "right",
-              marginRight: "40px",
-              //backgroundColor: "skyblue",
-            }}
-          >
+          <div className="book-row-word-count">
             {book.wordCount} words
           </div>
 
           {/* Reading Progress */}
-          <div
-            style={{
-              width: "90px",
-              paddingLeft: "0",
-              textAlign: "left",
-              marginRight: "0px",
-              //backgroundColor: "skyblue",
-            }}
-          >
+          <div className="book-row-progress">
             Read : {book.progress} %
           </div>
 

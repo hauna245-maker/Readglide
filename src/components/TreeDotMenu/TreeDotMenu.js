@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./TreeDotMenu.css";
 
 function TreeDotMenu({
@@ -18,7 +18,7 @@ function TreeDotMenu({
   if (type === "book") {
     options = [
       { label: "Delete book", onClick: () => moveBookToTrash(book.id) },
-      { label: "Edit book", onClick: () => navigate(`/books/${book.id}/edit`)  },
+      { label: "Edit book", to: `/books/${book.id}/edit` },
       { label: "Change collection" },
     ];
   } else if (type === "deleted book") {
@@ -60,15 +60,17 @@ function TreeDotMenu({
 
       {isOpen && (
         <div className="menuPopup">
-          {options.map((option) => (
-            <button
-              key={option.label}
-              onClick={() => handleOnClick(option)}
-              className="optionButton"
-            >
-              {option.label}
-            </button>
-          ))}
+          {options.map((option) =>
+            option.to ? (              
+              <Link to={option.to} key={option.label} className="menu-option">
+                {option.label}
+              </Link>
+            ) : (
+              <button onClick={option.onClick} key={option.label} className="menu-option">
+                {option.label}
+              </button>
+            )
+          )}
         </div>
       )}
     </div>
