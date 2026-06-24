@@ -5,7 +5,7 @@ function UploadModal({ closeUploadModal, addBook, collections, addCollection }) 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [keepTitle, setKeepTitle] = useState(false);
-  const [keepOpen, setKeepOpen] = useState(true);
+  const [keepOpen, setKeepOpen] = useState(false);
   const [collectionId, setCollectionId] = useState(collections[0]?.id);
   const [isCreating, setIsCreating] = useState(false);
   const [newCollectionName, setNewCollectionName] = useState("");
