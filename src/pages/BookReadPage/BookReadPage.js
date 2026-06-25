@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import "./BookReadPage.css";
 
-function BookReadPage({ books }) {
+function BookReadPage({ books, updateBookProgress }) {
   const { bookId } = useParams();
   const readingBook = books.find((book) => book.id === Number(bookId));
   const [pages, setPages] = useState([]);
@@ -10,6 +10,7 @@ function BookReadPage({ books }) {
   const readerRef = useRef(null);
   const measureRef = useRef(null);
 
+  //paginate the content
   useEffect(() => {
     const handleResize = () => {
       if (!readingBook) return;
@@ -17,25 +18,29 @@ function BookReadPage({ books }) {
       if (!measureRef.current) return;
 
       const maxHeight = readerRef.current.clientHeight;
-
       const newPages = makePagesBySize(
         readingBook.content,
         measureRef.current,
         maxHeight,
       );
-
       setPages(newPages);
-      setPageIndex(0);
     };
 
     handleResize();
-
     window.addEventListener("resize", handleResize);
-
+    
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, [readingBook]);
+
+  //update the progress
+  useEffect(()=>{
+    if (!readingBook) return;
+    const currentProgress=calculateProgress(pages, pageIndex, readingBook.wordCount);
+    updateBookProgress(readingBook.id, currentProgress);
+  }, [readingBook, pages, pageIndex, updateBookProgress])
+
 
   return (
     <div className="reading-page">
@@ -70,6 +75,7 @@ function BookReadPage({ books }) {
   );
 }
 
+
 function makePagesBySize(content, measureElement, maxHeight) {
   const words = content.split(" ");
   const newPages = [];
@@ -93,6 +99,21 @@ function makePagesBySize(content, measureElement, maxHeight) {
   }
 
   return newPages;
+}
+
+
+function calculateProgress(pages, pageIndex, totalWordCount) {
+  const readPages = pages.slice(0, pageIndex + 1);
+
+  let readWordCount = 0;
+  for (const page of readPages) {
+    const count = page.trim().split(/\s+/).filter(Boolean).length;
+    readWordCount = readWordCount + count;
+  }
+
+  if (totalWordCount === 0) return 0;
+
+  return Math.round((readWordCount / totalWordCount) * 100);
 }
 
 export default BookReadPage;

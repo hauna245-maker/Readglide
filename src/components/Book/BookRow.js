@@ -34,7 +34,7 @@ function BookRow({
 
           {/* Reading Progress */}
           <div className="book-row-progress">
-            Read : {book.progress} %
+            Read : {book.maxProgress} %
           </div>
 
           <TreeDotMenu

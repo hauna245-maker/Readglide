@@ -25,9 +25,13 @@ function App() {
 
   // load from localStorage
   useEffect(() => {
-    const saved = localStorage.getItem("books");
-    if (saved) {
-      setBooks(JSON.parse(saved));
+  const savedBooks = localStorage.getItem("books");
+  const savedCollections = localStorage.getItem("collections");
+    if (savedBooks) {
+      setBooks(JSON.parse(savedBooks));
+    }
+    if (savedCollections) {
+      setCollections(JSON.parse(savedCollections));
     }
     setIsLoaded(true);
   }, []);
@@ -36,13 +40,14 @@ function App() {
   useEffect(() => {
     if (!isLoaded) return;
     localStorage.setItem("books", JSON.stringify(books));
-  }, [books, isLoaded]);
+    localStorage.setItem("collections", JSON.stringify(collections));
+  }, [books, collections, isLoaded]);
 
   //function to add a collection to collections
   const addCollection = (name) => {
     const newCollection = {
       id: collections.length + 1,
-      name,
+      name: name,
       createdAt: Date.now(),
       lastUsedAt: Date.now(),
     };
@@ -60,10 +65,11 @@ function App() {
       title: input.title,
       content: input.content,
       collection: input.collectionId,
-      wordCount: input.content.split(" ").length,
+      wordCount: input.content.split(/\s+/).filter(Boolean).length,
       createdAt: Date.now(),
       lastReadAt: null,
-      progress: 0,
+      maxProgress: 0,
+      currentProgress: 0,
       isTrashed: false,
     };
 
@@ -72,7 +78,7 @@ function App() {
 
   //function to update a book
   const updateBook = (changes) => {
-    changes.wordCount=changes.content.split(" ").length;
+    changes.wordCount = changes.content.split(/\s+/).filter(Boolean).length;
 
     setBooks((prevBooks) =>
       prevBooks.map((book) => (book.id === changes.id ? changes : book)),
@@ -100,6 +106,30 @@ function App() {
   //delete a book forever
   const deleteBookForever = (bookId) => {
     setBooks((prevBooks) => prevBooks.filter((book) => book.id !== bookId));
+  };
+
+  //function to update progress of book
+  const updateBookProgress = (bookId, inputProgress) => {
+    setBooks((prevBooks) =>
+      prevBooks.map((book) =>{
+          if (book.id !== bookId) return book;
+          if (book.maxProgress >= inputProgress) {
+            return {
+              ...book,
+              currentProgress: inputProgress,
+              lastReadAt: Date.now(),
+            };
+          }
+
+          return {
+            ...book,
+            maxProgress: inputProgress,
+            currentProgress: inputProgress,
+            lastReadAt: Date.now(),
+          };
+        }
+      ),
+    );
   };
 
   //actuall output
@@ -138,13 +168,16 @@ function App() {
             }
           />
         </Route>
-            
+
         <Route element={<ReaderLayout />}>
-          <Route path="/books/:bookId" element={
+          <Route
+            path="/books/:bookId"
+            element={
               <BookReadPage
-                books={books} 
+                books={books}
+                updateBookProgress={updateBookProgress}
               />
-            } 
+            }
           />
         </Route>
       </Routes>
