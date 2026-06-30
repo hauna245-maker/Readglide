@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import * as BookApi from "./services/BookApi";
 import MainLayout from "./layout/MainLayout";
 import ReaderLayout from "./layout/ReaderLayout"
 import HomePage from "./pages/HomePage/HomePage";  
@@ -23,16 +24,20 @@ function App() {
   ]);
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
 
-  // load from localStorage
+  // load data
   useEffect(() => {
-  const savedBooks = localStorage.getItem("books");
-  const savedCollections = localStorage.getItem("collections");
-    if (savedBooks) {
-      setBooks(JSON.parse(savedBooks));
+    async function loadBooks() {
+      const books = await BookApi.getBooks();
+      setBooks(books);
     }
+
+    loadBooks();
+
+    const savedCollections = localStorage.getItem("collections");
     if (savedCollections) {
       setCollections(JSON.parse(savedCollections));
     }
+
     setIsLoaded(true);
   }, []);
 
@@ -57,9 +62,13 @@ function App() {
   };
 
   //function to add a book to books
-  const addBook = (input) => {
-    const nextId = (books[books.length - 1]?.id ?? 0) + 1;
+  const addBook = async (book) => {
+    await BookApi.addBook(book);
+    const newBooks = await BookApi.getBooks();
+    setBooks(newBooks);
 
+    /*
+    const nextId = (books[books.length - 1]?.id ?? 0) + 1;
     const newBook = {
       id: nextId,
       title: input.title,
@@ -72,44 +81,67 @@ function App() {
       currentProgress: 0,
       isTrashed: false,
     };
-
     setBooks((prev) => [...prev, newBook]);
+    */
   };
 
   //function to update a book
-  const updateBook = (changes) => {
+  const updateBook = (book) => {
+    await BookApi.updateBook(book);
+    const newBooks = await BookApi.getBooks();
+    setBooks(newBooks);
+    
+    /*
     changes.wordCount = changes.content.split(/\s+/).filter(Boolean).length;
-
     setBooks((prevBooks) =>
       prevBooks.map((book) => (book.id === changes.id ? changes : book)),
-    );
+    );*/
   };
 
   //function to move a book from books to deleted books
   const moveBookToTrash = (bookId) => {
+    await BookApi.moveBookToTrash(bookId);
+    const newBooks= await BookApi.getBooks
+    setBooks(newBooks)
+    /*
     setBooks((prevBooks) =>
       prevBooks.map((book) =>
         book.id === bookId ? { ...book, isTrashed: true } : book,
       ),
-    );
+    );*/
   };
 
   //function to restore a book
   const restoreBook = (bookId) => {
+    await BookApi.restoreBook(bookId);
+    const newBooks = await BookApi.getBooks();
+    setBooks(newBooks);
+
+    /*
     setBooks((prevBooks) =>
       prevBooks.map((book) =>
         book.id === bookId ? { ...book, isTrashed: false } : book,
       ),
     );
+    */
   };
 
   //delete a book forever
   const deleteBookForever = (bookId) => {
-    setBooks((prevBooks) => prevBooks.filter((book) => book.id !== bookId));
+    await BookApi.deleteBookForever(bookId);
+    const newBooks = await BookApi.getBooks();
+    setBooks(newBooks);
+    
+    //setBooks((prevBooks) => prevBooks.filter((book) => book.id !== bookId));
   };
 
   //function to update progress of book
   const updateBookProgress = (bookId, inputProgress) => {
+    await BookApi.deleteBookForever(bookId, inputProgress);
+    const newBooks = await BookApi.getBooks();
+    setBooks(newBooks);
+    
+    /*
     setBooks((prevBooks) =>
       prevBooks.map((book) =>{
           if (book.id !== bookId) return book;
@@ -130,6 +162,7 @@ function App() {
         }
       ),
     );
+    */
   };
 
   //actuall output
