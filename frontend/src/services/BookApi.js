@@ -39,13 +39,10 @@ export async function updateBook(book) {
   return response.json();
 }
 
+
 export async function moveBookToTrash(bookId){
   const response = await fetch(`${API_URL}/${bookId}./trash`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({isTrashed: true}),
   });
 
   if (!response.ok) {
@@ -55,13 +52,10 @@ export async function moveBookToTrash(bookId){
   return response.ok
 }
 
+
 export async function restoreBook(bookId){
   const response = await fetch(`${API_URL}/${bookId}/restore`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({isTrashed: false}),
   });
 
   if (!response.ok) {
@@ -70,6 +64,7 @@ export async function restoreBook(bookId){
 
   return response.ok
 }
+
 
 export async function deleteBookForever(bookId){
   const response = await fetch(`${API_URL}/${bookId}`, {
@@ -82,6 +77,7 @@ export async function deleteBookForever(bookId){
 
   return response.ok
 }
+
 
 export async function updateBookProgress(bookId, inputProgress){
   const response = await fetch(`${API_URL}/${bookId}/progress`, {
