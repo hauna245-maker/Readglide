@@ -27,8 +27,8 @@ function App() {
   // load data
   useEffect(() => {
     async function loadBooks() {
-      const books = await BookApi.getBooks();
-      setBooks(books);
+      const newBooks = await BookApi.getBooks();
+      setBooks(newBooks);
     }
 
     loadBooks();
@@ -66,27 +66,10 @@ function App() {
     await BookApi.addBook(book);
     const newBooks = await BookApi.getBooks();
     setBooks(newBooks);
-
-    /*
-    const nextId = (books[books.length - 1]?.id ?? 0) + 1;
-    const newBook = {
-      id: nextId,
-      title: input.title,
-      content: input.content,
-      collection: input.collectionId,
-      wordCount: input.content.split(/\s+/).filter(Boolean).length,
-      createdAt: Date.now(),
-      lastReadAt: null,
-      maxProgress: 0,
-      currentProgress: 0,
-      isTrashed: false,
-    };
-    setBooks((prev) => [...prev, newBook]);
-    */
   };
 
   //function to update a book
-  const updateBook = (book) => {
+  const updateBook = async (book) => {
     await BookApi.updateBook(book);
     const newBooks = await BookApi.getBooks();
     setBooks(newBooks);
@@ -99,7 +82,7 @@ function App() {
   };
 
   //function to move a book from books to deleted books
-  const moveBookToTrash = (bookId) => {
+  const moveBookToTrash = async (bookId) => {
     await BookApi.moveBookToTrash(bookId);
     const newBooks= await BookApi.getBooks
     setBooks(newBooks)
@@ -112,7 +95,7 @@ function App() {
   };
 
   //function to restore a book
-  const restoreBook = (bookId) => {
+  const restoreBook = async (bookId) => {
     await BookApi.restoreBook(bookId);
     const newBooks = await BookApi.getBooks();
     setBooks(newBooks);
@@ -127,7 +110,7 @@ function App() {
   };
 
   //delete a book forever
-  const deleteBookForever = (bookId) => {
+  const deleteBookForever = async (bookId) => {
     await BookApi.deleteBookForever(bookId);
     const newBooks = await BookApi.getBooks();
     setBooks(newBooks);
@@ -136,11 +119,11 @@ function App() {
   };
 
   //function to update progress of book
-  const updateBookProgress = (bookId, inputProgress) => {
+  const updateBookProgress = async (bookId, inputProgress) => {
     await BookApi.deleteBookForever(bookId, inputProgress);
     const newBooks = await BookApi.getBooks();
     setBooks(newBooks);
-    
+
     /*
     setBooks((prevBooks) =>
       prevBooks.map((book) =>{

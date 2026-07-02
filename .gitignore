@@ -8,6 +8,13 @@ node_modules/
 # IDE
 .vscode/
 
+# Python
+__pycache__/
+*.pyc
+
+# Database
+*.db
+
 # testing
 /coverage
 

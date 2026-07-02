@@ -29,7 +29,7 @@ export async function updateBook(book) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(book),
+    body: JSON.stringify(book.title, book.content, book.collectionId),
   });
 
   if (!response.ok) {
