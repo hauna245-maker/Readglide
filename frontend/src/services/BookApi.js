@@ -24,12 +24,16 @@ export async function addBook(book) {
 
 
 export async function updateBook(book) {
-  const response = await fetch(`${API_URL}/${book.id}/update`, {
+  const response = await fetch(`${API_URL}/${book.id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(book.title, book.content, book.collectionId),
+    body: JSON.stringify({
+      title: book.title,
+      content: book.content,
+      collectionId: book.collectionId,
+    }),
   });
 
   if (!response.ok) {

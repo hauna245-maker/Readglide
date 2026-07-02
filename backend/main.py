@@ -1,10 +1,11 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy import create_engine, Column, Integer, String, Boolean, DateTime
 from sqlalchemy.orm import declarative_base, sessionmaker
 from datetime import datetime
-from fastapi.middleware.cors import CORSMiddleware
 
+# setting for fastAPI
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
@@ -56,7 +57,7 @@ class BookProgress(BaseModel):
     currentProgress: int
 
 
-# api to get books
+# API to get books
 @app.get("/books")
 def get_books():
 
@@ -67,7 +68,7 @@ def get_books():
     return books
 
 
-# api to add book
+# API to add book
 @app.post("/books")
 def add_book(book: BookBase):
 
@@ -89,38 +90,39 @@ def add_book(book: BookBase):
 
 
 @app.put("/books/{book_id}")
-def update_book(book_id:int, new_book: BookBase):
+def update_book(book_id:int, book: BookBase):
 
     db = SessionLocal()
 
-    book = db.query(Book).filter(Book.id == book_id).first()
-    book.title = new_book.title
-    book.content = new_book.content
-    book.collectionId = new_book.collectionId
+    prev_book = db.query(Book).filter(Book.id == book_id).first()
+    prev_book.title = book.title
+    prev_book.content = book.content
+    prev_book.collectionId = book.collectionId
+    prev_book.wordCount = len(book.content.split())
 
     db.commit()
-    db.refresh(new_book)
+    db.refresh(book)
     db.close()
 
-    return new_book
+    return book
 
 
 @app.put("/books/trash")
-def update_book(book: BookBase):
+def move_book_to_trash(book: BookBase):
     db=SessionLocal()
     db.close()
 
 @app.put("/books/restore")
-def update_book(book: BookBase):
+def restore_book(book: BookBase):
     db=SessionLocal()
     db.close()
 
 @app.delete("/books")
-def add_book(book: BookBase):
+def delete_book(book: BookBase):
     db = SessionLocal()
     db.close()
 
 @app.put("/books/{book_id}/progress")
-def add_book(book: BookBase):
+def update_book_progress(book: BookBase):
     db = SessionLocal()
     db.close()
