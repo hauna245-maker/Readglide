@@ -11,7 +11,6 @@ import "./App.css";
 
 function App() {
   //declare variable
-  const [isLoaded, setIsLoaded] = useState(false);
   const [books, setBooks] = useState([]);
   const [collections, setCollections] = useState([
     {
@@ -32,21 +31,7 @@ function App() {
     }
 
     loadBooks();
-
-    const savedCollections = localStorage.getItem("collections");
-    if (savedCollections) {
-      setCollections(JSON.parse(savedCollections));
-    }
-
-    setIsLoaded(true);
   }, []);
-
-  // save to localStorage
-  useEffect(() => {
-    if (!isLoaded) return;
-    localStorage.setItem("books", JSON.stringify(books));
-    localStorage.setItem("collections", JSON.stringify(collections));
-  }, [books, collections, isLoaded]);
 
   //function to add a collection to collections
   const addCollection = (name) => {
@@ -73,12 +58,6 @@ function App() {
     await BookApi.updateBook(book);
     const newBooks = await BookApi.getBooks();
     setBooks(newBooks);
-    
-    /*
-    changes.wordCount = changes.content.split(/\s+/).filter(Boolean).length;
-    setBooks((prevBooks) =>
-      prevBooks.map((book) => (book.id === changes.id ? changes : book)),
-    );*/
   };
 
   //function to move a book from books to deleted books
@@ -86,12 +65,6 @@ function App() {
     await BookApi.moveBookToTrash(bookId);
     const newBooks= await BookApi.getBooks
     setBooks(newBooks)
-    /*
-    setBooks((prevBooks) =>
-      prevBooks.map((book) =>
-        book.id === bookId ? { ...book, isTrashed: true } : book,
-      ),
-    );*/
   };
 
   //function to restore a book
@@ -99,23 +72,17 @@ function App() {
     await BookApi.restoreBook(bookId);
     const newBooks = await BookApi.getBooks();
     setBooks(newBooks);
-
-    /*
-    setBooks((prevBooks) =>
-      prevBooks.map((book) =>
-        book.id === bookId ? { ...book, isTrashed: false } : book,
-      ),
-    );
-    */
   };
 
   //delete a book forever
   const deleteBookForever = async (bookId) => {
+    const book = books.find(books.id===bookId)
+    if (book.isTrashed === false){
+      return;
+    }
     await BookApi.deleteBookForever(bookId);
     const newBooks = await BookApi.getBooks();
     setBooks(newBooks);
-    
-    //setBooks((prevBooks) => prevBooks.filter((book) => book.id !== bookId));
   };
 
   //function to update progress of book
@@ -123,29 +90,6 @@ function App() {
     await BookApi.deleteBookForever(bookId, inputProgress);
     const newBooks = await BookApi.getBooks();
     setBooks(newBooks);
-
-    /*
-    setBooks((prevBooks) =>
-      prevBooks.map((book) =>{
-          if (book.id !== bookId) return book;
-          if (book.maxProgress >= inputProgress) {
-            return {
-              ...book,
-              currentProgress: inputProgress,
-              lastReadAt: Date.now(),
-            };
-          }
-
-          return {
-            ...book,
-            maxProgress: inputProgress,
-            currentProgress: inputProgress,
-            lastReadAt: Date.now(),
-          };
-        }
-      ),
-    );
-    */
   };
 
   //actuall output

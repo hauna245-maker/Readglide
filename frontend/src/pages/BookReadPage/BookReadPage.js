@@ -28,19 +28,19 @@ function BookReadPage({ books, updateBookProgress }) {
 
     handleResize();
     window.addEventListener("resize", handleResize);
-    
+
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, [readingBook]);
 
+  
   //update the progress
   useEffect(()=>{
     if (!readingBook) return;
     const currentProgress=calculateProgress(pages, pageIndex, readingBook.wordCount);
     updateBookProgress(readingBook.id, currentProgress);
-  }, [readingBook, pages, pageIndex, updateBookProgress])
-
+  }, [readingBook, pages, pageIndex])
 
   return (
     <div className="reading-page">

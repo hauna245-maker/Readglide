@@ -1,6 +1,7 @@
 import BookRow from "./BookRow";
 
-function BookList({ books = [], 
+function BookList({ 
+  books = [], 
   collections, 
   isTrashed,
   moveBookToTrash,

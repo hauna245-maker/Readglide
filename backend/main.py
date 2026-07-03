@@ -70,15 +70,15 @@ def get_books():
 
 # API to add book
 @app.post("/books")
-def add_book(book: BookBase):
+def add_book(book_input: BookBase):
 
     db = SessionLocal()
 
     new_book = Book(
-        title = book.title,
-        content = book.content,
-        collectionId=book.collectionId,
-        wordCount = len(book.content.split()),
+        title = book_input.title,
+        content = book_input.content,
+        collectionId=book_input.collectionId,
+        wordCount = len(book_input.content.split()),
     )
 
     db.add(new_book)
@@ -89,16 +89,17 @@ def add_book(book: BookBase):
     return new_book
 
 
+# API to update book
 @app.put("/books/{book_id}")
-def update_book(book_id:int, book: BookBase):
+def update_book(book_id:int, book_input: BookBase):
 
     db = SessionLocal()
+    book = db.query(Book).filter(Book.id == book_id).first()
 
-    prev_book = db.query(Book).filter(Book.id == book_id).first()
-    prev_book.title = book.title
-    prev_book.content = book.content
-    prev_book.collectionId = book.collectionId
-    prev_book.wordCount = len(book.content.split())
+    book.title = book_input.title
+    book.content = book_input.content
+    book.collectionId = book_input.collectionId
+    book.wordCount = len(book_input.content.split())
 
     db.commit()
     db.refresh(book)
@@ -107,22 +108,68 @@ def update_book(book_id:int, book: BookBase):
     return book
 
 
-@app.put("/books/trash")
-def move_book_to_trash(book: BookBase):
-    db=SessionLocal()
-    db.close()
+# API to move book to trash
+@app.put("/books/{book_id}/trash")
+def move_book_to_trash(book_id):
 
-@app.put("/books/restore")
-def restore_book(book: BookBase):
-    db=SessionLocal()
-    db.close()
-
-@app.delete("/books")
-def delete_book(book: BookBase):
     db = SessionLocal()
+    book = db.query(Book).filter(Book.id == book_id).first()
+
+    book.isTrashed=True
+
+    db.commit()
+    db.refresh(book)
     db.close()
 
+    return book
+
+
+# API to restore book
+@app.put("/books/{book_id}/restore")
+def restore_book(book_id):
+
+    db = SessionLocal()
+    book = db.query(Book).filter(Book.id == book_id).first()
+
+    book.isTrashed=False
+    
+    db.commit()
+    db.refresh(book)
+    db.close()
+
+    return book
+
+
+# API to delete book
+@app.delete("/books/{book_id}")
+def delete_book(book_id):
+
+    db = SessionLocal()
+    book = db.query(Book).filter(Book.id == book_id).first()
+
+    if book is None:
+        return
+    elif book.isTrashed is False:
+        return     
+
+    db.delete(book)
+    db.commit()
+    db.close()
+
+
+# API to update book progress
 @app.put("/books/{book_id}/progress")
-def update_book_progress(book: BookBase):
+def update_book_progress(book_id: int, input: BookProgress):
+
     db = SessionLocal()
+    book = db.query(Book).filter(Book.id == book_id).first()
+    
+    book.currentProgress=input.currentProgress
+    if book.maxProgress<input.currentProgress:
+        book.maxProgress=input.currentProgress
+
+    db.commit()
+    db.refresh(book)
     db.close()
+
+    return book
