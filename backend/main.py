@@ -7,6 +7,8 @@ from datetime import datetime
 
 # setting for fastAPI
 app = FastAPI()
+
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000"],

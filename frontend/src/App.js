@@ -63,7 +63,7 @@ function App() {
   //function to move a book from books to deleted books
   const moveBookToTrash = async (bookId) => {
     await BookApi.moveBookToTrash(bookId);
-    const newBooks= await BookApi.getBooks
+    const newBooks= await BookApi.getBooks();
     setBooks(newBooks)
   };
 
@@ -76,7 +76,11 @@ function App() {
 
   //delete a book forever
   const deleteBookForever = async (bookId) => {
-    const book = books.find(books.id===bookId)
+    const book = books.find((book) => book.id === bookId);
+
+    if (!book) return;
+    if (book.isTrashed === false) return;
+    
     if (book.isTrashed === false){
       return;
     }
@@ -87,7 +91,7 @@ function App() {
 
   //function to update progress of book
   const updateBookProgress = async (bookId, inputProgress) => {
-    await BookApi.deleteBookForever(bookId, inputProgress);
+    await BookApi.updateBookProgress(bookId, inputProgress);
     const newBooks = await BookApi.getBooks();
     setBooks(newBooks);
   };

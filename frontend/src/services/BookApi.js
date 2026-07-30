@@ -45,7 +45,7 @@ export async function updateBook(book) {
 
 
 export async function moveBookToTrash(bookId){
-  const response = await fetch(`${API_URL}/${bookId}./trash`, {
+  const response = await fetch(`${API_URL}/${bookId}/trash`, {
     method: "PUT",
   });
 

@@ -39,6 +39,7 @@ function BookReadPage({ books, updateBookProgress }) {
   useEffect(()=>{
     if (!readingBook) return;
     const currentProgress=calculateProgress(pages, pageIndex, readingBook.wordCount);
+    if (currentProgress === readingBook.currentProgress) return;
     updateBookProgress(readingBook.id, currentProgress);
   }, [readingBook, pages, pageIndex])
 
